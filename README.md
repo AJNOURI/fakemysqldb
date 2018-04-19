@@ -1,4 +1,4 @@
-# test_db
+
 A sample database with an integrated test suite, used to test your applications and database servers
 
 This repository was migrated from [Launchpad](https://launchpad.net/test-db).
@@ -86,6 +86,45 @@ For example:
     | salaries     | OK            | ok        |
     +--------------+---------------+-----------+
 
+## Using mysql docker container
+
+    $ docker-compose up -d
+    Creating network "testdb_default" with the default driver
+    Creating testdb_myfakesql_1 ... done
+
+
+    $ docker-compose ps
+           Name                    Command             State           Ports         
+    ---------------------------------------------------------------------------------
+    testdb_myfakesql_1   docker-entrypoint.sh mysqld   Up      0.0.0.0:3306->3306/tcp
+
+Create "employees" database:
+
+    $ mysql -h 127.0.0.1 -u root -p -Bse "create database employees;
+
+Load employees data:
+
+    $ mysql -h 127.0.0.1 -u root -p "employees" < "employees.sql"
+    Enter password: 
+    INFO
+    CREATING DATABASE STRUCTURE
+    INFO
+    storage engine: InnoDB
+    INFO
+    LOADING departments
+    INFO
+    LOADING employees
+    INFO
+    LOADING dept_emp
+    INFO
+    LOADING dept_manager
+    INFO
+    LOADING titles
+    INFO
+    LOADING salaries
+    data_load_time_diff
+    00:01:38
+
 
 ## DISCLAIMER
 
@@ -101,5 +140,7 @@ To view a copy of this license, visit
 http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to 
 Creative Commons, 171 Second Street, Suite 300, San Francisco, 
 California, 94105, USA.
+
+
 
 
