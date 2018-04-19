@@ -88,6 +88,15 @@ For example:
 
 ## Using mysql docker container
 
+This container relies on the repository:    
+https://github.com/AJNOURI/test_db   
+forked from:  
+https://github.com/datacharmer/test_db  
+
+A sample database with Which is an integrated test suite, used to test your applications and database servers
+
+## Building mysql docker container
+
     $ docker-compose up -d
     Creating network "testdb_default" with the default driver
     Creating testdb_myfakesql_1 ... done
@@ -125,21 +134,31 @@ Load employees data:
     data_load_time_diff
     00:01:38
 
+Commit the changes to an image:
 
-## DISCLAIMER
+    $ docker ps
+    CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
+    7ace9f9d5547        mysql:5.7           "docker-entrypoint..."   26 minutes ago      Up 26 minutes       0.0.0.0:3306->3306/tcp   testdb_myfakesql_1
+    ajn@~/github/fake-mysql-db/test_db$ docker commit 7ace9f9d5547 ajnouri/fakemysqldb
 
-To the best of my knowledge, this data is fabricated and
-it does not correspond to real people. 
-Any similarity to existing people is purely coincidental.
+And push to docker hub:
 
+    $ docker push ajnouri/fakemysqldb
+    The push refers to a repository [docker.io/ajnouri/fakemysqldb]
+    cf80a4b6afc5: Pushed 
+    c5479ef6e03d: Mounted from library/mysql 
+    1df83efbc52b: Mounted from library/mysql 
+    4b402dfbab7b: Mounted from library/mysql 
+    14d83b80d542: Mounted from library/mysql 
+    b0c77fd3841d: Mounted from library/mysql 
+    317e578f94b9: Mounted from library/mysql 
+    fbb39c7dedaf: Mounted from library/mysql 
+    55d5d837463a: Mounted from library/mysql 
+    f0f28cc0eea1: Mounted from library/mysql 
+    813996252a80: Mounted from library/mysql 
+    3358360aedad: Mounted from library/haproxy 
+    latest: digest: sha256:76a8331db4530bea31ab5e144b40d748ad3056b29ab4c642ecaeed669e5a4540 size: 2828
 
-## LICENSE
-This work is licensed under the 
-Creative Commons Attribution-Share Alike 3.0 Unported License. 
-To view a copy of this license, visit 
-http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to 
-Creative Commons, 171 Second Street, Suite 300, San Francisco, 
-California, 94105, USA.
 
 
 
